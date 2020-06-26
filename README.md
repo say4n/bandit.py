@@ -1,2 +1,3 @@
-# bandit.py
-k-armed bandit test bed for reinforcement learning 
+# bandit.rl
+
+k-armed bandit test bed for reinforcement learning
