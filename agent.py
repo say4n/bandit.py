@@ -45,16 +45,15 @@ class GreedyAgent(Agent):
         actions, rewards = [], []
 
         action_tracker = defaultdict(int)
-        reward_tracker = defaultdict(float)
 
         for turn in range(self.turns):
             action = np.argmax(self.action_value)
             reward = game.step(action)
 
             action_tracker[action] += 1
-            reward_tracker[action] += reward
 
-            self.action_value[action] = reward_tracker[action] / action_tracker[action]
+            self.action_value[action] = self.action_value[action] +\
+                (reward - self.action_value[action]) / action_tracker[action]
 
             actions.append(action)
             rewards.append(action)
@@ -79,7 +78,6 @@ class EpsilonGreedyAgent(Agent):
         actions, rewards = [], []
 
         action_tracker = defaultdict(int)
-        reward_tracker = defaultdict(float)
 
         for turn in range(self.turns):
             if random.random() < self.epsilon:
@@ -92,9 +90,9 @@ class EpsilonGreedyAgent(Agent):
                 reward = game.step(action)
 
             action_tracker[action] += 1
-            reward_tracker[action] += reward
 
-            self.action_value[action] = reward_tracker[action] / action_tracker[action]
+            self.action_value[action] = self.action_value[action] +\
+                (reward - self.action_value[action]) / action_tracker[action]
 
             actions.append(action)
             rewards.append(action)
