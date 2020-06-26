@@ -69,9 +69,21 @@ def simulate_epsilon_greedy_agent(games, epsilon):
     return data
 
 
-
 if __name__ == "__main__":
     games = [Bandit(NUM_ARMS) for _ in range(NUM_GAMES)]
+    reward_distribution = [[] for _ in range(NUM_ARMS)]
+
+    for game in games:
+        rewards = game.get_rewards()
+        for i in range(NUM_ARMS):
+            reward_distribution[i].append(rewards[i])
+
+
+    plt.violinplot(reward_distribution, range(NUM_ARMS), showmeans=True)
+    plt.xticks(range(NUM_ARMS))
+    plt.xlabel("Actions")
+    plt.ylabel("Reward Distribution")
+    plt.show()
 
     r_data = simulate_random_agent(games)
     g_data = simulate_greedy_agent(games)
