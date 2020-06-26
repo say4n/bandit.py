@@ -6,7 +6,7 @@ class Bandit:
         self.k = k
         self.mean = mean
         self.variance = variance
-        self.reward_variance = variance
+        self.reward_variance = reward_variance
 
         self.rewards = np.random.normal(self.mean, self.variance, self.k)
 
@@ -18,6 +18,9 @@ class Bandit:
 
     def get_action_space(self):
         return np.arange(self.k)
+
+    def get_rewards(self):
+        return self.rewards
 
     def __repr__(self):
         return f"k-Armed Bandit (Stochastic, Stationary)"
