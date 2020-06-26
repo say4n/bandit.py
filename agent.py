@@ -39,7 +39,7 @@ class GreedyAgent(Agent):
     def __init__(self, arms=10, turns=1000):
         super().__init__(arms, turns)
 
-        self.action_value = np.random.normal(0, 1, arms)
+        self.action_value = np.random.normal(0, 0.01, arms)
 
     def play(self, game):
         actions, rewards = [], []
@@ -71,7 +71,7 @@ class EpsilonGreedyAgent(Agent):
     def __init__(self, epsilon=0.1, arms=10, turns=1000):
         super().__init__(arms, turns)
 
-        self.action_value = np.random.normal(0, 1, arms)
+        self.action_value = np.random.normal(0, 0.01, arms)
         self.epsilon = epsilon
 
     def play(self, game):
