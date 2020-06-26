@@ -11,13 +11,53 @@ NUM_GAMES = 2000
 NUM_STEPS = 1000
 
 
-def simulate(agent):
+def simulate_random_agent(games):
     data = {
         "actions": [],
         "rewards": np.zeros(NUM_STEPS)
     }
-    for _ in tqdm(range(NUM_GAMES), desc=str(agent)):
-        game = Bandit(NUM_ARMS)
+    for g in tqdm(range(NUM_GAMES), desc="Random Agent"):
+        agent = RandomAgent(NUM_ARMS, NUM_STEPS)
+        game = games[g]
+
+        actions, rewards = agent.play(game)
+
+        data["actions"].extend(actions)
+        data["rewards"] += rewards
+
+    # Convert sum to average reward per step.
+    data["rewards"] /= NUM_GAMES
+
+    return data
+
+def simulate_greedy_agent(games):
+    data = {
+        "actions": [],
+        "rewards": np.zeros(NUM_STEPS)
+    }
+    for g in tqdm(range(NUM_GAMES), desc="Greedy Agent"):
+        agent = GreedyAgent(NUM_ARMS, NUM_STEPS)
+        game = games[g]
+
+        actions, rewards = agent.play(game)
+
+        data["actions"].extend(actions)
+        data["rewards"] += rewards
+
+    # Convert sum to average reward per step.
+    data["rewards"] /= NUM_GAMES
+
+    return data
+
+def simulate_epsilon_greedy_agent(games, epsilon):
+    data = {
+        "actions": [],
+        "rewards": np.zeros(NUM_STEPS)
+    }
+    for g in tqdm(range(NUM_GAMES), desc=f"Epsilon Greedy Agent ({epsilon})"):
+        agent = EpsilonGreedyAgent(epsilon, NUM_ARMS, NUM_STEPS)
+        game = games[g]
+
         actions, rewards = agent.play(game)
 
         data["actions"].extend(actions)
@@ -31,17 +71,12 @@ def simulate(agent):
 
 
 if __name__ == "__main__":
-    agent = RandomAgent(NUM_ARMS, NUM_STEPS)
-    r_data = simulate(agent)
+    games = [Bandit(NUM_ARMS) for _ in range(NUM_GAMES)]
 
-    agent = GreedyAgent(NUM_ARMS, NUM_STEPS)
-    g_data = simulate(agent)
-
-    agent = EpsilonGreedyAgent(0.1, NUM_ARMS, NUM_STEPS)
-    e_data_1 = simulate(agent)
-
-    agent = EpsilonGreedyAgent(0.01, NUM_ARMS, NUM_STEPS)
-    e_data_2 = simulate(agent)
+    r_data = simulate_random_agent(games)
+    g_data = simulate_greedy_agent(games)
+    e_data_1 = simulate_epsilon_greedy_agent(games, 0.1)
+    e_data_2 = simulate_epsilon_greedy_agent(games, 0.01)
 
     timesteps = range(NUM_STEPS)
 
