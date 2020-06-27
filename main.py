@@ -54,7 +54,7 @@ def simulate_epsilon_greedy_agent(games, epsilon):
         "actions": [],
         "rewards": np.zeros(NUM_STEPS)
     }
-    for g in tqdm(range(NUM_GAMES), desc=f"Epsilon Greedy Agent ({epsilon})"):
+    for g in tqdm(range(NUM_GAMES), desc=f"𝜀-Greedy Agent ({epsilon})"):
         agent = EpsilonGreedyAgent(epsilon=epsilon, arms=NUM_ARMS, turns=NUM_STEPS)
         game = games[g]
 
@@ -73,7 +73,7 @@ def simulate_upper_confidence_bound(games, c):
         "actions": [],
         "rewards": np.zeros(NUM_STEPS)
     }
-    for g in tqdm(range(NUM_GAMES), desc=f"Upper Confidence Bound Agent"):
+    for g in tqdm(range(NUM_GAMES), desc=f"UCB ({c})"):
         agent = UpperConfidenceBoundAgent(c=c, arms=NUM_ARMS, turns=NUM_STEPS)
         game = games[g]
 
@@ -124,7 +124,7 @@ if __name__ == "__main__":
     plt.plot(timesteps, u_data_2["rewards"], color="magenta", linewidth=0.5)
 
     plt.ylim(bottom=0)
-    plt.legend(["Random", "Greedy", "𝜀-Greedy (0.1)", "𝜀-Greedy (0.01)", "UCB (1)", "UCB (2)"])
+    plt.legend(["Random", "Greedy", "$\epsilon$-Greedy (0.1)", "$\epsilon$-Greedy (0.01)", "UCB (1)", "UCB (2)"])
     plt.xlabel("Timesteps")
     plt.ylabel("Average Reward")
 
