@@ -104,3 +104,47 @@ class EpsilonGreedyAgent(Agent):
 
     def __repr__(self):
         return f"Epsilon-Greedy Agent ({self.epsilon})"
+
+
+class UpperConfidenceBoundAgent(Agent):
+    def __init__(self, c=1, arms=10, turns=1000):
+        super().__init__(arms, turns)
+
+        self.action_value = np.zeros(arms)
+        self.c = c
+
+    def play(self, game):
+        actions, rewards = [], []
+
+        action_tracker = defaultdict(int)
+
+        # Stop numpy from complaining about NaN and zero division.
+        np.seterr(divide='ignore', invalid='ignore')
+
+        for turn in range(self.turns):
+            q = np.zeros(self.arms)
+
+            for i in range(self.arms):
+                q[i] = self.action_value[i] + self.c * np.sqrt(np.float64(turn)/action_tracker[i])
+
+            action = np.argmax(q)
+            reward = game.step(action)
+
+            action_tracker[action] += 1
+
+            self.action_value[action] = self.action_value[action] +\
+                (reward - self.action_value[action]) / action_tracker[action]
+
+            actions.append(action)
+            rewards.append(reward)
+
+        # Resume complaining about NaN and zero division.
+        np.seterr(divide='warn', invalid='warn')
+
+        return actions, rewards
+
+    def get_action_values(self):
+        return self.action_value
+
+    def __repr__(self):
+        return f"Epsilon-Greedy Agent ({self.epsilon})"
