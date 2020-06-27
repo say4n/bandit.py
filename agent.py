@@ -116,16 +116,13 @@ class UpperConfidenceBoundAgent(Agent):
     def play(self, game):
         actions, rewards = [], []
 
-        action_tracker = defaultdict(int)
+        action_tracker = np.zeros(self.arms)
 
         # Stop numpy from complaining about NaN and zero division.
         np.seterr(divide='ignore', invalid='ignore')
 
         for turn in range(self.turns):
-            q = np.zeros(self.arms)
-
-            for i in range(self.arms):
-                q[i] = self.action_value[i] + self.c * np.sqrt(np.float64(turn)/action_tracker[i])
+            q = self.action_value + self.c * np.sqrt(np.float64(turn)/action_tracker)
 
             action = np.argmax(q)
             reward = game.step(action)
@@ -147,4 +144,4 @@ class UpperConfidenceBoundAgent(Agent):
         return self.action_value
 
     def __repr__(self):
-        return f"Epsilon-Greedy Agent ({self.epsilon})"
+        return f"UCB Agent ({self.c})"
