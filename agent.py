@@ -122,7 +122,7 @@ class UpperConfidenceBoundAgent(Agent):
         np.seterr(divide='ignore', invalid='ignore')
 
         for turn in range(self.turns):
-            q = self.action_value + self.c * np.sqrt(np.float64(turn)/action_tracker)
+            q = self.action_value + self.c * np.sqrt(np.log(turn, dtype=np.float64)/action_tracker)
 
             action = np.argmax(q)
             reward = game.step(action)
