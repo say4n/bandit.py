@@ -12,7 +12,7 @@ class Agent:
         raise NotImplementedError
 
     def __repr__(self):
-        return "Abstract Base Class Agent"
+        return "Agent (Abstract Base Class)"
 
 
 class RandomAgent(Agent):
