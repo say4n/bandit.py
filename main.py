@@ -105,6 +105,10 @@ if __name__ == "__main__":
         plt.xticks(range(NUM_ARMS))
         plt.xlabel("Actions")
         plt.ylabel("Reward Distribution")
+
+        plt.savefig("plots/game_distribution.png")
+        plt.savefig("plots/game_distribution.svg")
+
         plt.show()
 
     r_data = simulate_random_agent(games)
@@ -126,5 +130,8 @@ if __name__ == "__main__":
     plt.legend(["Random", "Greedy", "$\epsilon$-Greedy (0.1)", "$\epsilon$-Greedy (0.01)", "UCB (1)", "UCB (2)"])
     plt.xlabel("Timesteps")
     plt.ylabel("Average Reward")
+
+    plt.savefig("plots/stochastic_bandit_comparision.png", dpi=300)
+    plt.savefig("plots/stochastic_bandit_comparision.svg")
 
     plt.show()
