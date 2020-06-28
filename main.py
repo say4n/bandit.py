@@ -116,12 +116,12 @@ if __name__ == "__main__":
 
     timesteps = range(NUM_STEPS)
 
-    plt.plot(timesteps, r_data["rewards"], color="black", linewidth=0.5)
-    plt.plot(timesteps, g_data["rewards"], color="green", linewidth=0.5)
-    plt.plot(timesteps, e_data_1["rewards"], color="blue", linewidth=0.5)
-    plt.plot(timesteps, e_data_2["rewards"], color="red", linewidth=0.5)
-    plt.plot(timesteps, u_data_1["rewards"], color="cyan", linewidth=0.5)
-    plt.plot(timesteps, u_data_2["rewards"], color="magenta", linewidth=0.5)
+    plt.plot(timesteps, r_data["rewards"], color="black", linewidth=0.5, alpha=0.7)
+    plt.plot(timesteps, g_data["rewards"], color="green", linewidth=0.5, alpha=0.7)
+    plt.plot(timesteps, e_data_1["rewards"], color="blue", linewidth=0.5, alpha=0.7)
+    plt.plot(timesteps, e_data_2["rewards"], color="red", linewidth=0.5, alpha=0.7)
+    plt.plot(timesteps, u_data_1["rewards"], color="cyan", linewidth=0.5, alpha=0.7)
+    plt.plot(timesteps, u_data_2["rewards"], color="magenta", linewidth=0.5, alpha=0.7)
 
     plt.legend(["Random", "Greedy", "$\epsilon$-Greedy (0.1)", "$\epsilon$-Greedy (0.01)", "UCB (1)", "UCB (2)"])
     plt.xlabel("Timesteps")
