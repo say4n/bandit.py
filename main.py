@@ -54,7 +54,7 @@ def simulate_epsilon_greedy_agent(games, epsilon):
         "actions": [],
         "rewards": np.zeros(NUM_STEPS)
     }
-    for g in tqdm(range(NUM_GAMES), desc=f"𝜀-Greedy Agent ({epsilon})"):
+    for g in tqdm(range(NUM_GAMES), desc=f"e-Greedy Agent ({epsilon})"):
         agent = EpsilonGreedyAgent(epsilon=epsilon, arms=NUM_ARMS, turns=NUM_STEPS)
         game = games[g]
 
