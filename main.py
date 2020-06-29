@@ -127,7 +127,9 @@ if __name__ == "__main__":
     plt.plot(timesteps, u_data_1["rewards"], color="cyan", linewidth=0.5, alpha=0.7)
     plt.plot(timesteps, u_data_2["rewards"], color="magenta", linewidth=0.5, alpha=0.7)
 
-    plt.legend(["Random", "Greedy", "$\epsilon$-Greedy (0.1)", "$\epsilon$-Greedy (0.01)", "UCB (1)", "UCB (2)"])
+    plt.legend(["Random", "Greedy", "$\epsilon$-Greedy (0.1)",
+                "$\epsilon$-Greedy (0.01)", "UCB (1)", "UCB (2)"],
+                fontsize="xx-small")
     plt.xlabel("Timesteps")
     plt.ylabel("Average Reward")
 
